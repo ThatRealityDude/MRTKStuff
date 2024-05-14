@@ -16,8 +16,6 @@ public class MeshSaving: MonoBehaviour
 {
     [SerializeField] private ARMeshManager meshManager;
     private Mesh newMesh;
-    [SerializeField] private GameObject prefab;
-    [SerializeField] private Mesh prefabMesh;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +27,7 @@ public class MeshSaving: MonoBehaviour
     
     public void getMesh()
     {
-        meshManager.transform.localScale = Vector3.one * 100f;
+        meshManager.transform.localScale = Vector3.one * 100f; //Extends te range of the mesh generation, hard coded cuz I am very lazy, simular code is found within a MRTK Script
         MeshFilter[] meshFilters = new MeshFilter[meshManager.meshes.Count];
         CombineInstance[] combine = new CombineInstance[meshFilters.Length];
         for (int i = 0; i < meshManager.meshes.Count; i++)
@@ -43,22 +41,17 @@ public class MeshSaving: MonoBehaviour
     }
     public void saveMesh()
     {
-        if (!Directory.Exists("Assets/test"))
+        getMesh();
+        if (!Directory.Exists("Assets/Generated Meshes"))
         {
-            AssetDatabase.CreateFolder("Assets", "test");
+            AssetDatabase.CreateFolder("Assets", "Generated Meshes");
         }
 
-        string localPath = "Assets/test/" + gameObject.name + ".prefab";
+        string localPath = "Assets/Generated Meshes/" + gameObject.name + ".asset";
 
         // Make sure the file name is unique, in case an existing Prefab has the same name.
         localPath = AssetDatabase.GenerateUniqueAssetPath(localPath);
         AssetDatabase.CreateAsset(newMesh, localPath);
-    }
-
-    public void compareMesh()
-    {
-        prefabMesh.GameObject().transform.position = newMesh.GameObject().transform.position;
-        prefabMesh.GameObject().transform.rotation = newMesh.GameObject().transform.rotation;
     }
 
     public Mesh getCurrentMesh()
