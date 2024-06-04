@@ -11,12 +11,13 @@ public class GazeExample : MonoBehaviour //This is placed on the object you want
     {
         if(GetComponent<StatefulInteractable>().IsGazeHovered)
         {
-            GetComponent<Material>().color = Color.green;
+            GetComponent<Renderer>().material.color = Color.green;
 
-            //Can add some code that changes a static or referenced variable in another script to the object that is detected upon gaze
+            //Can add some code that changes a static or referenced variable in another script to the object that is detected i
         } else {
-            GetComponent<Material>().color = Color.red;
+            GetComponent<Renderer>().material.color = Color.red;
         }
-        //GetComponent<Material>().color = GetComponent<StatefulInteractable>().IsGazeHovered ? Color.green : Color.red;
+        //GetComponent<Renderer>().material.color = GetComponent<StatefulInteractable>().IsGazeHovered ? Color.green : Color.red;
     }
 }
+
